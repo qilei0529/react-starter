@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node build/server.js",
+    "dev": "node build/server.js"
   },
   "author": "qilei",
   "license": "ISC",
