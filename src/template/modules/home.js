@@ -11,6 +11,8 @@ require('../styles/home.styl');
  * >////<
  */
 
+var img = require('../images/home/logo.png');
+
 class Home extends Component {
 
     constructor(props) {
@@ -19,14 +21,15 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        document.title = 'this is home'
+        document.title = 'this is home';
     }
 
     render() {
-
         return (
             <div className="page-home">
-                hello world
+                <div className="icon icon-run"></div>
+                <div className="icon"><img src={img} alt="" width="100"/></div>
+                <div className="title"><span>hello world</span></div>
             </div>
         )
     }

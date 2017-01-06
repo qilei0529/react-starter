@@ -8,7 +8,6 @@ const chalk = require('chalk');
 const webpack = require('webpack')
 
 const clearConsole = require('react-dev-utils/clearConsole');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 
 let handleCompile;
