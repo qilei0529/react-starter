@@ -1,27 +1,14 @@
-// 
-// 用来 美化 webpack 输出信息
-// 
+/*
+ ** 用来 美化 webpack 输出信息
+ */
 
 'use strict'
 
 const chalk = require('chalk');
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 const clearConsole = require('react-dev-utils/clearConsole');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-
-let handleCompile;
-
-let isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1);
-if (isSmokeTest) {
-  handleCompile = function (err, stats) {
-    if (err || stats.hasErrors() || stats.hasWarnings()) {
-      process.exit(1);
-    } else {
-      process.exit(0);
-    }
-  };
-}
 
 function setupCompiler(config) {
 
@@ -37,7 +24,7 @@ function setupCompiler(config) {
   });
   compiler.plugin('done', function(stats) {
     clearConsole();
-    
+
     var messages = formatWebpackMessages(stats.toJson({}, true));
     if (!messages.errors.length && !messages.warnings.length) {
       console.log(chalk.green('Compiled successfully!'));
@@ -74,7 +61,7 @@ function setupCompiler(config) {
     }
   });
 
-  return compiler 
+  return compiler
 }
 
 module.exports = setupCompiler

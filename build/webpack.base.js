@@ -1,22 +1,32 @@
+/*
+ ** webpack 基础
+ */
 
-const webpack = require('webpack')
+const webpack = require('webpack');
 
-const config = require('./config')
-const utils = require('./utils')
+const config = require('./config');
+const utils = require('./utils');
+const assign = require('object-assign');
 
-const assetsPublicPath = process.env.NODE_ENV === 'production' ? 
-    config.build.assetsPublicPath : 
-    config.dev.assetsPublicPath
+// 动态生成 目录下的 entries ( src/[name]/ 下含有 app.js 的情况下生成 对应的 [name].js)
+const project_entries = utils.mapEntries(config.build.assetsSrcRoot);
 
-const entries = utils.mapEntries( config.build.assetsSrcRoot )
+// 自定义 entries
+const custom_entries = config.entries || [];
 
+console.log("Entries:");
+const entries = Object.assign({}, project_entries, custom_entries);
+console.log( entries );
+console.log();
 
-const extractTextPlugin = require("extract-text-webpack-plugin")
-const extractCSS = new extractTextPlugin( 'css/[name].css')
+// 生成对应的 [name].css
+const extractTextPlugin = require("extract-text-webpack-plugin");
+const extractCSS = new extractTextPlugin('css/[name].css');
 
 
 module.exports = {
   entry: entries,
+  port: config.server.port,
   output: {
     path: config.build.assetsRoot,
     filename: 'js/[name].js',
@@ -25,37 +35,41 @@ module.exports = {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel'
-      },
-      { 
-        test: /\.styl$/, 
-        loader: extractCSS.extract(['css','stylus'])
-      },
-      {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url',
-        query: {
-          limit: 1000,
-          name: 'images/[name].[hash:5].[ext]'
-        }
+    loaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel'
+    }, {
+      test: /\.styl$/,
+      loader: extractCSS.extract(['css', 'stylus'])
+    }, {
+      test: /\.less$/,
+      loader: extractCSS.extract(['css', 'less'])
+    }, {
+      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+      loader: 'url',
+      query: {
+        limit: 1000,
+        name: 'images/[name].[hash:10].[ext]'
       }
-    ]
+    }]
   },
 
   babel: {
-      presets: ['stage-0','es2015','react']
+    presets: ['stage-0', 'es2015', 'react']
   },
-  
+
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM'
   },
   plugins: [
-    extractCSS
+    extractCSS,
+    new webpack.optimize.CommonsChunkPlugin({
+        name: "common",
+        minChunks: 2,
+    }),
+    new webpack.DefinePlugin( config.defines )
   ]
 
 }

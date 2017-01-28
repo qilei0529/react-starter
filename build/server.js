@@ -1,25 +1,23 @@
 /**
- * webpack 编译文件
+ * server.js 本地 开发 环境
  */
 
 'use strict'
 
-process.env.NODE_ENV = 'development';
+const express = require('express');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const express = require('express')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
+const path = require('path');
+const opn = require('opn');
 
-const path = require('path')
-const opn = require('opn')
+const config = require('./config');
 
-const config = require('./config')
+const webpackConfig = require('./webpack.dev');
+const setupCompiler = require('./webpack.setup');
 
-const webpackConfig = require('./webpack.dev')
-const setupCompiler = require('./webpack.setup')
-
-const compiler = setupCompiler( webpackConfig );
+const compiler = setupCompiler(webpackConfig);
 
 const devMiddleware = webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -29,24 +27,27 @@ const devMiddleware = webpackDevMiddleware(compiler, {
   }
 })
 
-const hotMiddleware = webpackHotMiddleware(compiler)
+const hotMiddleware = webpackHotMiddleware(compiler);
 
 // force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
-    cb()
+compiler.plugin('compilation', function(compilation) {
+  compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
+    hotMiddleware.publish({
+      action: 'reload'
+    });
+    cb();
   })
 })
 
-const app = express()
-app.use(devMiddleware)
-app.use(hotMiddleware)
+const app = express();
+app.use(devMiddleware);
+app.use(hotMiddleware);
 
-app.use(express.static(config.dev.staticRoot))
+app.use(express.static(config.server.staticRoot));
 
-const port = process.env.PORT || config.dev.port
+const port = config.server.port;
 module.exports = app.listen(port, (err) => {
+
   if (err) {
     console.log(err)
     return
@@ -58,4 +59,5 @@ module.exports = app.listen(port, (err) => {
   if (process.env.NODE_ENV !== 'testing') {
     opn(uri)
   }
+
 })
