@@ -17,4 +17,18 @@ const mapEntries = function(srcPath) {
   return entriesList;
 }
 
+
+const mapAlias = function( srcPath ){
+  var aliasList = fs.readdirSync(srcPath).reduce((alias, dir) => {
+    const fullDir = path.join(srcPath, dir)
+    const entry = path.join(fullDir, 'app.js')
+    if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
+      alias[ '~' + dir] = fullDir
+    }
+    return alias;
+  }, {})
+  return aliasList;
+}
+
 exports.mapEntries = mapEntries;
+exports.mapAlias = mapAlias;

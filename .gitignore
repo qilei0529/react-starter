@@ -1,2 +1,4 @@
 assets
 release
+yarn.lock
+npm-debug.log

@@ -19,6 +19,13 @@ const entries = Object.assign({}, project_entries, custom_entries);
 console.log( entries );
 console.log();
 
+// 自动 alias
+const project_alias = utils.mapAlias(config.build.assetsSrcRoot);
+const custom_alias = config.alias || [];
+const alias = Object.assign({} , project_alias, custom_alias)
+console.log( alias )
+console.log();
+
 // 生成对应的 [name].css
 const extractTextPlugin = require("extract-text-webpack-plugin");
 const extractCSS = new extractTextPlugin('css/[name].css');
@@ -63,6 +70,11 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM'
   },
+  
+  resolve: {
+    alias: alias
+  },
+
   plugins: [
     extractCSS,
     new webpack.optimize.CommonsChunkPlugin({

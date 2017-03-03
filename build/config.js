@@ -25,6 +25,10 @@ module.exports = {
         assetsPublicPath:'/assets/',
     },
 
+    alias : {
+      '~base':  path.join(__dirname, '../src/base')
+    },
+
     // 全局引用
     defines : {
         // 基础 URL 地址, 根据环境变量加载不同的配置文件

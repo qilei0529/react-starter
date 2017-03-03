@@ -21,3 +21,11 @@
 	npm run build:clean
 	npm run build:webpack
 	npm run build:gulp
+
+
+====
+
+## 更新日志
+
+3月3日 
+    增加 动态 alias
