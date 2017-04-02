@@ -50,14 +50,11 @@ module.exports = {
       test: /\.styl$/,
       loader: extractCSS.extract(['css', 'stylus'])
     }, {
-      test: /\.less$/,
-      loader: extractCSS.extract(['css', 'less'])
-    }, {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
       loader: 'url',
       query: {
         limit: 1000,
-        name: 'images/[name].[hash:10].[ext]'
+        name: 'images/[name].[hash:6].[ext]'
       }
     }]
   },
@@ -73,6 +70,11 @@ module.exports = {
   
   resolve: {
     alias: alias
+  },
+
+  stylus: {
+    use: [],
+    preferPathResolver: 'webpack'
   },
 
   plugins: [

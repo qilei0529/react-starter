@@ -27,6 +27,11 @@
 
 ## 更新日志
 
+4月2日 
+    更新 alias 调用规则， 使用 @ 做为前缀防止引用混淆。
+    增加 stylus 引用 alias 内容： 使用方法: ~@template ，具体见 → stylus-loader 
+
+
 3月11日
     增加 包引用 监控 wabpack-visualizer-plugin
     可以 查看 自己的项目文件都引用了哪些包，包内容的占比，方便优化代码

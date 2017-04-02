@@ -23,7 +23,7 @@ const mapAlias = function( srcPath ){
     const fullDir = path.join(srcPath, dir)
     const entry = path.join(fullDir, 'app.js')
     if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
-      alias[ '~' + dir] = fullDir
+      alias[ '@' + dir] = fullDir
     }
     return alias;
   }, {})

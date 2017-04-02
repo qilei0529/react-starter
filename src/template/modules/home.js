@@ -6,11 +6,11 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 
 
-// alias from ~base
-import BaseBox from '~base/components/baseBox';
+// alias from @base
+import BaseBox from '@base/components/baseBox';
 
-// alias from ~template
-import Demo from '~template/components/demo';
+// alias from @template
+import Demo from '@template/components/demo';
 
 require('../styles/home.styl');
 
