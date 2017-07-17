@@ -5,7 +5,9 @@
     - 支持 es6
     - 重载，热加载
     - stylus less
-    
+    - [] 可拆分包文件，动态触发加载
+    - [] eslint
+    - [] redux router 引入
 
     npm i
 
@@ -21,6 +23,7 @@
 	npm run build:clean
 	npm run build:webpack
 	npm run build:gulp
+
 
 
 ====
