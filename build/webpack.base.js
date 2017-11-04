@@ -60,7 +60,7 @@ module.exports = {
   },
 
   babel: {
-    presets: ['stage-0', 'es2015', 'react']
+    presets: ['env','stage-0', 'react']
   },
 
   externals: {
