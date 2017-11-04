@@ -33,6 +33,10 @@ To do list
 
 ## 更新日志
 
+11月5日 
+    升级 了一下 package.json 里的 babel-preset-env
+
+
 4月2日 
     更新 alias 调用规则， 使用 @ 做为前缀防止引用混淆。
     增加 stylus 引用 alias 内容： 使用方法: ~@template ，具体见 → stylus-loader 
